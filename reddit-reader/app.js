@@ -50,11 +50,11 @@ const saveToDB = async (tableName, data) => {
       break
 
     case 'content':
-      obj = { name: data.name, author: data.author, body: data.body, score: data.score }
+      obj = { name: data.name, body: data.body, score: data.score }
       break
 
     case 'comments':
-      obj = { id: data.id, parent_id: data.parent_id, link_id: data.link_id, name: data.name, created: new Date(parseInt(data.created_utc) * 1000), sub_id: data.subreddit_id }
+      obj = { id: data.id, parent_id: data.parent_id, link_id: data.link_id, name: data.name, author: data.author, created: new Date(parseInt(data.created_utc) * 1000), sub_id: data.subreddit_id }
       break
   }
 

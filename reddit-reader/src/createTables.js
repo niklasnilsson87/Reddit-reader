@@ -3,9 +3,8 @@ const mysql = require('mysql2')
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: '',
   database: 'reddit-reader',
-  socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 }).promise()
 
 const createSubRedditTable = `
@@ -16,7 +15,6 @@ const createSubRedditTable = `
 
 const createContentTable = `
     CREATE TABLE content (
-        author VARCHAR(30) NOT NULL,
         body text NOT NULL,
         score int NOT NULL,
         name VARCHAR(30) PRIMARY KEY NOT NULL
@@ -28,6 +26,7 @@ const createCommentsTable = `
         parent_id VARCHAR(16) NOT NULL,
         link_id VARCHAR(16) NOT NULL,
         name VARCHAR(30) NOT NULL,
+        author VARCHAR(30) NOT NULL,
         created DATE NOT NULL,
         sub_id VARCHAR(16) NOT NULL,
         FOREIGN KEY (sub_id) REFERENCES subreddit (sub_id),
@@ -40,13 +39,13 @@ const createCommentsTable = `
 //         parent_id VARCHAR(16),
 //         link_id VARCHAR(16),
 //         name VARCHAR(30),
+//         author VARCHAR(30),
 //         created DATE,
 //         sub_id VARCHAR(16)
 //     );`
 
 // const contentTableWithoutConstrains = `
 //     CREATE TABLE content (
-//         author VARCHAR(30),
 //         body text,
 //         score int,
 //         name VARCHAR(30)
